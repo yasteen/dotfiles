@@ -1,0 +1,92 @@
+!!! XTerm !!!
+
+! Fonts
+xterm*faceName: xft:DejaVu Sans Mono
+xterm*faceSize: 13
+xterm*VT100.Translations: #override \
+	Ctrl Shift <Key> V:	insert-selection(CLIPBOARD) \n\
+	Ctrl Shift <Key> C:	copy-selection(CLIPBOARD)
+
+xterm*geometry: 92x28+535+220
+
+xterm*iconPixmap: /home/justin/Pictures/Resources/kintoki.xbm
+
+
+!!! COLOURS !!!
+
+! special
+*.foreground:   #c0b18b
+*.background:   #282828
+*.cursorColor:  #c0b18b
+
+! black
+*.color0:       #4a3637
+*.color8:       #4a3637
+
+! red
+*.color1:       #d17b49
+*.color9:       #d17b49
+
+! green
+*.color2:       #7b8748
+*.color10:      #7b8748
+
+! yellow
+*.color3:       #af865a
+*.color11:      #af865a
+
+! blue
+*.color4:       #535c5c
+*.color12:      #535c5c
+
+! magenta
+*.color5:       #775759
+*.color13:      #775759
+
+! cyan
+*.color6:       #6d715e
+*.color14:      #6d715e
+
+! white
+*.color7:       #c0b18b
+*.color15:      #c0b18b
+
+!!! URxvt !!!
+
+URxvt.scrollBar: false
+! URxvt.font: xft:NotoSansMono-Medium:size=10
+URxvt.font: xft:Inconsolata:size=13
+
+! Font
+URxvt*geometry: 100x28+450+200
+
+URxvt*transparent: true
+URxvt*shading: 20
+
+!! Common Keybinds for Navigations
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.keysym.Control-Left: \033[1;5D
+
+!! Copy Paste & Other Extensions
+URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select
+URxvt.copyCommand: xclip -i -selection clipboard
+URxvt.pasteCommand: xclip -o -selection clipboard
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+!! Disable iso14755
+URxvt.iso14755: False
+
+!! URL
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.urlLauncher: firefox
+URxvt.underlineURLs: true
+URxvt.urlButton: 1
+
