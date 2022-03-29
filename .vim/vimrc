@@ -1,55 +1,69 @@
 set nocompatible
 filetype off
-set exrc
+set exrc 
 
 set encoding=UTF-8
 
 
-" --- Vundle and stuff
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-source $HOME/.vim/vpm/sources.vim
-call vundle#end()
-filetype plugin indent on
+" --- NON PLUGIN CONFIGS
 
-
-" --- Omnifunc
-set omnifunc=syntaxComplete#Complete
-
-" *****
-" --- Colour and other basic settings
 set guifont=Inconsolata\ 14
-
 set fillchars+=vert:\|
 syntax enable
 set ruler
 set hidden
-set number
-set laststatus=2
+set relativenumber
+" set laststatus=2
 set mouse=a
 set secure
+set belloff=all
 
 set smartindent autoindent
-" set st=2 sw=2 et
 set expandtab
-set shiftwidth=4 " shiftwidth goes with tabstop
+set shiftwidth=4
 set tabstop=4
-let g:vim_json_syntax_conceal = 0
-
-" -- Vinsence
-" let g:vimsence_client_id = '244672361159327744'
-" let g:vimsence_small_text = 'Vim'
-" let g:vimsence_small_image = 'vim'
-" let g:vimsence_editing_details = 'Editing: {}'
-" let g:vimsence_editing_state = 'Working on: {}'
-" let g:vinsence_file_explorer_text = 'In NERDTree'
-" let g:vinsence_custom_icons = {'filetype': 'iconname'}
+set backspace=2
 
 
+" --- LIMITED SELECTION OF VUNDLE PLUGINS
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" gvim
+Plugin 'VundleVim/Vundle.vim' " Let vundle handle itself
+
+Plugin 'easymotion/vim-easymotion'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'kien/ctrlp.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'fatih/vim-go'
+Plugin 'vim-fugitive'
+Plugin 'xolox/vim-notes'
+
+call vundle#end()
+filetype plugin indent on
+
+" --- NERDTree
+let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.o$', '\.so$', '\.a$', '\.swp', '*\.swp', '\.swo', '\.swn', '\.swh', '\.swm', '\.swl', '\.swk', '\.sw*$', '[a-zA-Z]*egg[a-zA-Z]*', '.DS_Store']
+let NERDTreeShowHidden=1
+let g:NERDTreeWinPos="left"
+let g:NERDTreeDirArrows=0
+map <C-t> :NERDTreeToggle<CR>
+
+" --- Easymotion
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+nmap f <Plug>(easymotion-s)
+
+" --- Go
+let g:go_def_mapping_enabled = 0
+
+" --- END OF VUNDLE PLUGIN CONFIGS
+
+
+" --- GVim
 if has('gui_running')
-	colorscheme gruvbox
+    colorscheme gruvbox
 	set background=dark
 	set colorcolumn=80
 	set guioptions-=m " remove menubar
@@ -57,68 +71,7 @@ if has('gui_running')
 	set guioptions-=r " remove right scrollbar
 	set guioptions-=L " remove left scrollbar
 	set lines=999 columns=999
-    autocmd GuiEnter * silent exec "!transset -a 0.90"
+    autocmd GuiEnter * silent exec '!transset -a 0.90'
 endif
-" *****
 
-
-
-
-" --- NERDTREE
-let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.o$', '\.so$', '\.a$', '\.swp', '*\.swp', '\.swo', '\.swn', '\.swh', '\.swm', '\.swl', '\.swk', '\.sw*$', '[a-zA-Z]*egg[a-zA-Z]*', '.DS_Store']
-
-let NERDTreeShowHidden=1
-let g:NERDTreeWinPos="left"
-let g:NERDTreeDirArrows=0
-map <C-t> :NERDTreeToggle<CR>
-
-" --- Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-" let g:syntastic_javascript_checkers = ['eslint', 'tslint']
-" let g:syntastic_javascript_mri_args = "--config=$HOME/.jshintrc"
-" let g:syntastic_python_checkers = [ 'flake8', 'python' ]
-" let g:syntastic_yaml_checkers = ['jsyaml']
-let g:syntastic_html_tidy_exec = 'tidy5'
-" let g:syntastic_python_flake8_config_file='.flake8'
-
-" --- typescript
-" let g:tsuquyomi_disable_default_mappings = 1
-" autocmd FileType typscript noremap <silent> <C-]> :TsuDefinition<CR>
-" autocmd FileType typescriptreact noremap <silent> <C-]> :TsuDefinition<CR>
-
-" --- flake8
-let g:flake8_show_in_file=1
-
-" --- snippets
-"  If you want :UltiSnipsEdit to split your window
-let g:UltiSnipsEditSplit="vertical"
-
-" Make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:ycm_semantic_triggers =  { 'c' : ['->', '.', '::', 're!gl'], 'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s'] }
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_global_ycm_extra_conf = '$HOME/.vim/.ycm_extra_conf.py'
-
-" Better keybinding for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" --- Easymotion
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-nmap f <Plug>(easymotion-s)
-
-
-" --- Go
-let g:go_def_mapping_enabled = 0
-
-" --- Json
 command JsonPretty execute ':%!python3 -m json.tool'

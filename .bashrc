@@ -58,8 +58,6 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-# Testing
-# PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[00m\] -> \[\033[01;34m\](\W)\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -77,7 +75,6 @@ unset color_prompt force_color_prompt
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 #    test -r ~/.config/ls/dircolors && eval "$(dircolors -b ~/.config/ls/dircolors)";
-    eval "$(dircolors -b ~/.config/ls/dircolors)";
 
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
@@ -136,7 +133,6 @@ alias mv='mv -i'
 
 # Neofetch with picture for xterm or urxvt
 term=( $(ps -p $(ps -p $$ -o ppid=) -o args=) );
-
 if [ ${term[0]} == xterm ] || [ ${term[0]} == urxvt ] || [ ${term[0]} == rxvt ]; then
 	neofetch --w3m ~/Pictures/Resources/gintoki.jpg
 else
@@ -145,11 +141,11 @@ fi
 xrdb ~/.Xresources
 #xrdb ~/.Xdefaults
 
-# Node path
+# PATHS
 #export NODE_PATH=/usr/lib/node_modules
 
-# Go
 export PATH=$PATH:/usr/local/go/bin
+# export PATH=$PATH:/usr/pgadmin4/bin
 
 # Second monitor:
 # xrandr --output HDMI-1 --auto --pos 0x700 --output DP-1 --auto --pos 1920x0 --rotate left
@@ -162,3 +158,14 @@ export PATH=$PATH:/usr/local/go/bin
 
 # Dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME'
+
+# Bash Git Prompt
+if [ -f "$HOME/bin/bash-git-prompt/gitprompt.sh" ]; then
+    GIT_PROMPT_ONLY_IN_REPO=1
+    source $HOME/bin/bash-git-prompt/gitprompt.sh
+fi
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# SET LS COLOUR SCHEME
+eval "$(dircolors -b ~/.config/ls/dircolors)";
