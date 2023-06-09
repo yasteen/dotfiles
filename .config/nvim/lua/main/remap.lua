@@ -13,7 +13,6 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- Paste onto highlighted text without replacing buffer
 vim.keymap.set("x", "<leader>p", "\"_dP")
- 
 
 -- Yank to clipboard
 vim.keymap.set("n", "<leader>y", "\"+y")
@@ -27,17 +26,7 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 
+-- Formatting
+local format = vim.lsp.buf.format
+vim.keymap.set("n", "<leader>f", format)
 
--- -- Format file with gg=G
--- local fmtFile = function() vim.cmd("setlocal equalprg=YcmCompleter Format") end
--- vim.api.nvim_create_autocmd({"FileType"}, {
---     pattern = {"*.c", "*.h", "*.cpp"},
---     callback = fmtFile,
--- })
--- 
--- -- Check code when saving
--- local checkFile = function() vim.cmd("YcmForceCompileAndDiagnostics") end
--- vim.api.nvim_create_autocmd({"BufWritePre"}, {
---     pattern = {"*.c", "*.h", "*.cpp"},
---     callback = checkFile,
--- })
