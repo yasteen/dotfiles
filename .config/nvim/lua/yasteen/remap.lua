@@ -1,7 +1,3 @@
--- gd -> GOTO
---local map = vim.api.nvim_set_keymap
---map('n', 'gd', 'YcmCompleter GoTo', {noremap = true, silent = true})
-
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Up down cursor stay same
@@ -25,8 +21,3 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 
 vim.keymap.set("n", "Q", "<nop>")
-
--- Formatting
-local format = vim.lsp.buf.format
-vim.keymap.set("n", "<leader>f", format)
-

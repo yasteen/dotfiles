@@ -1,0 +1,20 @@
+#!/bin/bash
+
+alias sudo="doas"
+
+# Colour
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+# Safety
+alias rm='rm -i'
+alias mv='mv -i'
+
+# Vim
+alias vim="nvim"
+alias lvim="nvim ~/.config/nvim/lua/yasteen/lazy.lua"
+alias pvim="nvim ~/.config/nvim/after/plugin"
+
+
+# Config
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
