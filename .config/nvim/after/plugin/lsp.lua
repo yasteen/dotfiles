@@ -7,6 +7,52 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
   require('cmp_nvim_lsp').default_capabilities()
 )
 
+local default_setup = function(server)
+  lspconfig[server].setup({})
+end
+
+
+
+-------------------------
+--  LSP CONFIGURATION  --
+-------------------------
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {
+      "lua_ls",
+  },
+  handlers = { default_setup },
+})
+
+-- Individual LSP setup
+lspconfig.lua_ls.setup({
+    settings = {
+        Lua = {
+            runtime = {
+                version = "LuaJIT"
+            },
+            diagnostics = {
+                globals = { "vim" },
+            },
+            workspace = {
+                library = {
+                    vim.env.VIMRUNTIME,
+                }
+            }
+        }
+    }
+})
+
+lspconfig.eslint.setup({})
+lspconfig.tsserver.setup({})
+lspconfig.gopls.setup({})
+lspconfig.clangd.setup({})
+
+
+
+--------------------
+--  KEY-BINDINGS  --
+--------------------
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
@@ -41,47 +87,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-local default_setup = function(server)
-  lspconfig[server].setup({})
-end
 
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {
-      "lua_ls",
-      "eslint",
-      "tsserver",
-      "gopls",
-  },
-  handlers = { default_setup },
-})
 
--- INDIVIDUAL LSP CONFIG
-lspconfig.lua_ls.setup({
-    settings = {
-        Lua = {
-            runtime = {
-                version = "LuaJIT"
-            },
-            diagnostics = {
-                globals = { "vim" },
-            },
-            workspace = {
-                library = {
-                    vim.env.VIMRUNTIME,
-                }
-            }
-        }
-    }
-})
-lspconfig.eslint.setup({})
-lspconfig.tsserver.setup({})
-lspconfig.gopls.setup({})
-
----------------------
--- COMPLETION CONFIG
----------------------
---
+-------------------------
+--  COMPLETION CONFIG  --
+-------------------------
 local cmp = require('cmp')
 cmp_select = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
@@ -93,7 +103,7 @@ cmp.setup({
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     -- Enter key confirms completion item
     ['<CR>'] = cmp.mapping.confirm({select = false}),
-    ['<C-y>'] = cmp.mapping.confirm({select = false}),
+    ['<C-y>'] = cmp.mapping.confirm({select = true}),
     -- Ctrl + space triggers completion menu
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
